@@ -1,11 +1,24 @@
-function NavBar({handleClickPrecedent, handleClickSuivant, pokemonIndex, pokemonList }){
-    
-    return(
-        <>
-    {pokemonIndex > 0 ? <button onClick={handleClickPrecedent}>Précédent</button> : undefined}
-    {pokemonIndex < pokemonList.length - 1 ? <button onClick={handleClickSuivant}>Suivant</button> : undefined}
+// eslint-disable-next-line react/prop-types
+import PropTypes from "prop-types";
+
+export default function NavBar({ pokemonList, setpokemonIndex }) {
+  return (
+    <>
+      {pokemonList.map((pokemon, index) => (
+        <button key={pokemon.name} onClick={() => setpokemonIndex(index)}>
+          {pokemon.name}
+        </button>
+      ))}
     </>
-);}
+  );
+}
 
-
-export default NavBar;
+NavBar.protoTypes = {
+  setpokemonIndex: PropTypes.func.isRequired,
+  pokemonList: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      imgSrc: PropTypes.string,
+    })
+  ).isRequired,
+};
